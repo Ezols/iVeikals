@@ -9,14 +9,35 @@
                     <a href="{{ route('products.addnew') }}" class="btn btn-sm btn-default pull-right">Add</a>
                 </div>
 
-                <div class="card-body">
-                Ielikt tabulu
+
                    <table class="table">
                         <tr>
-                            <th></th>
+                            <th>ID</th>
+                            <th>Category id</th>
+                            <th>Title</th>
+                            <th>Weight</th>
+                            <th>Unit</th>   
+                            <th>Price</th>
+                            <th>Image</th>
+                            <th>Manufacturing date</th>
+                            <th>Use till date</th>
                         </tr>
+
+                        @foreach($products as $product)
+                            <tr>
+                                <td>{{ $product->id }}</td>
+                                <td>{{ $product->category_id }}</td>
+                                <td>{{ $product->title }}</td>
+                                <td>{{ $product->weight }}</td>
+                                <td>{{ $product->unit }}</td>
+                                <td>{{ $product->price }}</td>
+                                <td>{{ $product->image }}</td>
+                                <td>{{ $product->manufacturing_date }}</td>
+                                <td>{{ $product->best_before_date }}</td>
+                            </tr>
+                        @endforeach
                    </table>
-                </div>
+
             </div>
         </div>
     </div>

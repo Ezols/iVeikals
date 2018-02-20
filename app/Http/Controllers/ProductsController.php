@@ -9,8 +9,7 @@ class ProductsController extends Controller
 {  
     public function index()
     {
-        $data['Products'] = Product::all();
-        
+        $data['products'] = Product::all();        
         return view('Products.products', $data);
     }
 
@@ -22,9 +21,6 @@ class ProductsController extends Controller
 
     public function submit($id = null)
     {
-        // Do this
-        
-        //dd(request()->all());
         $data = request()->validate([
             'title' => 'required',
             'weight' => 'required|integer',
@@ -38,7 +34,7 @@ class ProductsController extends Controller
 
 
         $product = $id ? Product::find($id) : new Product;
-
+        // Do this
         $product->category_id = 5;
         $product->title = $data['title'];
         $product->weight = $data['weight'];
@@ -48,6 +44,8 @@ class ProductsController extends Controller
         $product->manufacturing_date = $data['manufacturing_date'];
         $product->best_before_date = $data['best_before_date'];
         $product->save();
+
+        return redirect()->route('products');
 
     }
     

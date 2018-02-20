@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card card-default">
                 <div class="card-header">Products
-                    <a href="" class="btn btn-sm btn-default pull-right">Cancel</a>
+                    <a href="{{ route('products') }}" class="btn btn-sm btn-default pull-right">Cancel</a>
                 </div>
 
                 <div class="card-body">
