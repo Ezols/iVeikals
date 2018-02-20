@@ -14,6 +14,14 @@
                     {{ csrf_field() }}
 
                         @include('partials.inputs.text', ['name' => 'title', 'label' => 'Title'])
+                        @include('partials.inputs.text', ['name' => 'weight', 'label' => 'Weight'])
+                        @include('partials.inputs.select', ['name' => 'unit', 'label' => 'Unit', 'options' => $units])
+                        @include('partials.inputs.text', ['name' => 'price', 'label' => 'Price'])
+                        @include('partials.inputs.file', ['name' => 'img', 'label' => 'Picture'])
+                        @include('partials.inputs.date', ['name' => 'manufacturing_date', 'label' => 'Manufacturing date'])
+                        @include('partials.inputs.date', ['name' => 'best_before_date', 'label' => 'Best before date'])
+
+                        <button class="btn btn-primary" type="submit" name="submit">Add</button>
 
                     </form>
                 </div>
