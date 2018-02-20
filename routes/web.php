@@ -18,3 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/products', 'ProductsController@index')->name('products');
+Route::get('/products/add', 'ProductsController@addnew')->name('products.addnew');
+Route::post('/products/submit', 'ProductsController@submit')->name('products.submit');
+
+Route::resource('photos', 'PhotoController');
