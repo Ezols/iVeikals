@@ -22,6 +22,8 @@ class ProductsController extends Controller
 
     public function submit($id = null)
     {
+        // Do this
+        
         //dd(request()->all());
         $data = request()->validate([
             'title' => 'required',
@@ -37,6 +39,7 @@ class ProductsController extends Controller
 
         $product = $id ? Product::find($id) : new Product;
 
+        $product->category_id = 5;
         $product->title = $data['title'];
         $product->weight = $data['weight'];
         $product->unit = $data['unit'];

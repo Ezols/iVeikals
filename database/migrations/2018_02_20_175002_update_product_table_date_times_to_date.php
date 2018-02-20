@@ -14,6 +14,7 @@ class UpdateProductTableDateTimesToDate extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
+            $table->string('img', 255)->nullable()->change();
             $table->date('manufacturing_date')->change();
             $table->date('best_before_date')->change();
         });
