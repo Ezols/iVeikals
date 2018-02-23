@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card card-default">
                 <div class="card-header">Products
-                    <a href="{{ route('products') }}" class="btn btn-sm btn-default pull-right">Cancel</a>
+                    <a href="{{ route('products') }}" class="btn btn-danger pull-right">Cancel</a>
                 </div>
 
                 <div class="card-body">
@@ -22,7 +22,6 @@
                         @include('partials.inputs.date', ['name' => 'best_before_date', 'label' => 'Best before date'])
 
                         <button class="btn btn-primary" type="submit" name="submit">Add</button>
-
                     </form>
                 </div>
             </div>

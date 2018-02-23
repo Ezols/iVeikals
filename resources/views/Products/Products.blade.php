@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card card-default">
                 <div class="card-header">Products
-                    <a href="{{ route('products.addnew') }}" class="btn btn-sm btn-default pull-right">Add</a>
+                    <a href="{{ route('products.addnew') }}" class="btn btn-primary pull-right">Add</a>
                 </div>
 
 
