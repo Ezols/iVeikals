@@ -18,6 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/profile', 'ProfileController@profile')->name('profile');
+Route::post('/profile', 'ProfileController@updateAvatar')->name('profile.updateAvatar');
 Route::get('/products', 'ProductsController@index')->name('products');
 Route::get('/products/add', 'ProductsController@addnew')->name('products.addnew');
 Route::post('/products/submit/{id?}', 'ProductsController@submit')->name('products.submit');
