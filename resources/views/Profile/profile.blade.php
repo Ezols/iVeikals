@@ -11,7 +11,7 @@
                 @csrf
                 <label>Update Profile Picture</label>
                 @include('partials.inputs.file', ['name' => 'avatar', 'label' => 'Picture'])
-                <input type="submit" class="pull-right btn btn-sm btn-primary">
+                <input type="submit" class="float-right btn btn-sm btn-primary">
             </form>
         </div>
     </div>

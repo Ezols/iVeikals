@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card card-default">
                 <div class="card-header">Products
-                    <a href="{{ route('products') }}" class="btn btn-danger pull-right">Cancel</a>
+                    <a href="{{ route('products') }}" class="btn btn-danger float-right">Cancel</a>
                 </div>
 
                 <div class="card-body">

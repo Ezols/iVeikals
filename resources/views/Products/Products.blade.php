@@ -5,8 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card card-default">
-                <div class="card-header">Products
-                    <a href="{{ route('products.addnew') }}" class="btn btn-primary pull-right">Add</a>
+                <div class="card-header">
+                    <a href="{{ route('products.addnew') }}" class="btn btn-primary float-right">Add</a>
+                    <h2>Products</h2>                   
                 </div>
 
 
