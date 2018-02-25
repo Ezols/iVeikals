@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card card-default">
                 <div class="card-header">
                     <a href="{{ route('products.addnew') }}" class="btn btn-primary float-right">Add</a>
@@ -22,6 +22,7 @@
                             <th>Image</th>
                             <th>Manufacturing date</th>
                             <th>Use till date</th>
+                            <th>Action</th>
                         </tr>
 
                         @foreach($products as $product)
@@ -32,13 +33,17 @@
                                 <td>{{ $product->weight }}</td>
                                 <td>{{ $product->unit }}</td>
                                 <td>{{ $product->price }}</td>
-                                <td>{{ $product->image }}</td>
+                                <td>
+                                    @if($product->img)
+                                        <img src="/uploads/products/thumbnail/{{$product->img}}">
+                                    @endif
+                                </td>
                                 <td>{{ $product->manufacturing_date }}</td>
                                 <td>{{ $product->best_before_date }}</td>
+                                <td><a href="{{ route('product.edit', $product->id) }}" class="btn btn-primary float-right">Edit</a></td>
                             </tr>
                         @endforeach
                    </table>
-
             </div>
         </div>
     </div>

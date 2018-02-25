@@ -23,5 +23,6 @@ Route::post('/profile', 'ProfileController@updateAvatar')->name('profile.updateA
 Route::get('/products', 'ProductsController@index')->name('products');
 Route::get('/products/add', 'ProductsController@addnew')->name('products.addnew');
 Route::post('/products/submit/{id?}', 'ProductsController@submit')->name('products.submit');
+Route::get('/products/edit/{id?}', 'ProductsController@edit')->name('product.edit');
 
 Route::resource('photos', 'PhotoController');

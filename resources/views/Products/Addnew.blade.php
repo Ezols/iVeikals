@@ -14,7 +14,7 @@
                     {{ csrf_field() }}
 
                         @include('partials.inputs.text', ['name' => 'title', 'label' => 'Title'])
-                        @include('partials.inputs.text', ['name' => 'weight', 'label' => 'Weight'])
+                        @include('partials.inputs.number', ['name' => 'weight', 'label' => 'Weight'])
                         @include('partials.inputs.select', ['name' => 'unit', 'label' => 'Unit', 'options' => $units])
                         @include('partials.inputs.text', ['name' => 'price', 'label' => 'Price'])
                         @include('partials.inputs.file', ['name' => 'img', 'label' => 'Picture'])
