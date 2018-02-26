@@ -32,7 +32,7 @@ class ProductsController extends Controller
     public function submit($id = null, Request $request)
     {
         $data = request()->validate([
-            'title' => 'required',
+            'title' => 'required|max:255',
             'weight' => 'required|integer',
             'unit' => 'required',
             'price' => 'required|integer',
