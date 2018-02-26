@@ -16,17 +16,26 @@ class ProductsController extends Controller
         return view('products.products', $data);
     }
 
-    public function addnew()
-    {
-        $data['units'] = static::UNITS;
-        return view('products.addnew', $data);
-    }
+    // public function addnew()
+    // {
+    //     $data['units'] = static::UNITS;
+    //     return view('products.addnew', $data);
+    // }
 
-    public function edit($id)
+    // public function edit($id)
+    // {
+    //     $data['units'] = static::UNITS;
+    //     $data['product'] = Product::findOrFail($id);
+    //     return view('products.edit', $data);
+    // }
+
+    public function newEdit($id = null)
     {
+        $product = $id ? Product::find($id) : new Product;
+        $data['product'] = $product;
+        $data['id'] = $id;
         $data['units'] = static::UNITS;
-        $data['product'] = Product::findOrFail($id);
-        return view('products.edit', $data);
+        return view('products.newEdit', $data);
     }
 
     public function submit($id = null, Request $request)

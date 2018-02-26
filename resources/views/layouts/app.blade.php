@@ -24,11 +24,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 @guest
-               
+
                 @else
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('products') }}">Products</a>
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ route('products') }}">Products</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('categories') }}">Categories</a>
+                            </div>
                         </li>
                     </ul>
                 @endguest

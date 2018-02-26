@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card card-default">
                 <div class="card-header">
-                    <a href="{{ route('products.addnew') }}" class="btn btn-primary float-right">Add</a>
+                    <a href="{{ route('products.newEdit') }}" class="btn btn-primary float-right">Add</a>
                     <h2>Products</h2>                   
                 </div>
 
@@ -40,7 +40,7 @@
                                 </td>
                                 <td>{{ $product->manufacturing_date }}</td>
                                 <td>{{ $product->best_before_date }}</td>
-                                <td><a href="{{ route('product.edit', $product->id) }}" class="btn btn-primary float-right">Edit</a></td>
+                                <td><a href="{{ route('products.newEdit', $product->id) }}" class="btn btn-primary float-right">Edit</a></td>
                             </tr>
                         @endforeach
                    </table>
