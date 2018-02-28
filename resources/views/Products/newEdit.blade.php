@@ -16,6 +16,7 @@
                         @include('partials.inputs.text', ['name' => 'title', 'label' => 'Title', 'value' => $product->title])
                         @include('partials.inputs.number', ['name' => 'weight', 'label' => 'Weight', 'value' => $product->weight])
                         @include('partials.inputs.select', ['name' => 'unit', 'label' => 'Unit', 'options' => $units, 'value' => $product->unit])
+                        @include('partials.inputs.select', ['name' => 'category_id', 'label' => 'Category', 'options' => $categories])
                         @include('partials.inputs.text', ['name' => 'price', 'label' => 'Price', 'value' => $product->price])
                         @include('partials.inputs.file', ['name' => 'img', 'label' => 'Picture', 'value' =>  "/uploads/products/" . $product->img])
                         @include('partials.inputs.date', ['name' => 'manufacturing_date', 'label' => 'Manufacturing date', 'value' => $product->manufacturing_date])

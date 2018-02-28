@@ -16,7 +16,7 @@ class CategoriesController extends Controller
     public function newEdit($id = null)
     {
         $data['id'] = $id;
-        $data['categorie'] = $id ? Product_categorie::find($id) : new Product_categorie;
+        $data['categorie'] = $id ? Product_categorie::findOrFail($id) : new Product_categorie;
         return view('categories.newEdit', $data);
     }
 

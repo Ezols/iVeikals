@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Product_categorie;
 use Image;
 
 class ProductsController extends Controller
@@ -16,34 +17,24 @@ class ProductsController extends Controller
         return view('products.products', $data);
     }
 
-    // public function addnew()
-    // {
-    //     $data['units'] = static::UNITS;
-    //     return view('products.addnew', $data);
-    // }
-
-    // public function edit($id)
-    // {
-    //     $data['units'] = static::UNITS;
-    //     $data['product'] = Product::findOrFail($id);
-    //     return view('products.edit', $data);
-    // }
-
     public function newEdit($id = null)
     {
-        $product = $id ? Product::find($id) : new Product;
+        $product = $id ? Product::findOrFail($id) : new Product;
         $data['product'] = $product;
         $data['id'] = $id;
         $data['units'] = static::UNITS;
+        $data['categories'] = Product_categorie::select(['title', 'id'])->get()->mapWithKeys(function($cat) { return [$cat->id => $cat->title]; });
         return view('products.newEdit', $data);
     }
 
     public function submit($id = null, Request $request)
     {
+        //dd(request()->all());
         $data = request()->validate([
             'title' => 'required|max:255',
             'weight' => 'required|integer',
             'unit' => 'required',
+            'category_id' => 'required|exists:product_categories,id',
             'price' => 'required|integer',
             'img' => 'nullable|image',
             'manufacturing_date' => 'required|date',
@@ -62,7 +53,7 @@ class ProductsController extends Controller
         }
 
         // Do this
-        $product->category_id = 5;
+        $product->category_id = $data['category_id'];
         $product->title = $data['title'];
         $product->weight = $data['weight'];
         $product->unit = $data['unit'];
