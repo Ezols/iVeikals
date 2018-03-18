@@ -48,7 +48,7 @@ class ProductsController extends Controller
             $img = $request->file('img');
             $fileName = time() . '.' . $img->getClientOriginalExtension();
             Image::make($img)->resize(300, 300)->save(public_path(DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $fileName));
-            Image::make($img)->resize(200, 200)->save(public_path(DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . 'shop' . $fileName));
+            Image::make($img)->resize(180, 120)->save(public_path(DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . 'shop' . DIRECTORY_SEPARATOR . $fileName));
             $Thumbnail = Image::make($img)->resize(26, 26)->save(public_path(DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . 'thumbnail' . DIRECTORY_SEPARATOR . $fileName));
             $product->img = $fileName;
         }

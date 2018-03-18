@@ -10,6 +10,13 @@
 
     <title>{{ config('app.name', 'iVeikals') }}</title>
 
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+    
+    <!-- Custom CSS-->
+    <link rel="stylesheet" href="{{ URL::to('src/css/app.css') }}">
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -47,13 +54,14 @@
                         <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                         <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                     @else
+                    <li><a class="nav-link" href="{{ route('register') }}"><i class="fas fa-shopping-cart"></i> Shoping Cart</a></li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:relative; padding:5px;">
                                 <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:32px; height:32px; position:abosolute; top:10px; left:10px; border-radius:50%;">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
                                 <li>
                                 <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
                                 </li>
