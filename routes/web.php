@@ -16,20 +16,24 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+// Admin Routes
     # Home
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin/home', 'HomeController@index')->name('home');
     # Profile
 Route::get('/profile', 'ProfileController@profile')->name('profile');
 Route::post('/profile', 'ProfileController@updateAvatar')->name('profile.updateAvatar');
     # Products
-Route::get('/products', 'ProductsController@index')->name('products');
-// Route::get('/products/add', 'ProductsController@addnew')->name('products.addnew');
-Route::post('/products/submit/{id?}', 'ProductsController@submit')->name('products.submit');
-// Route::get('/products/edit/{id?}', 'ProductsController@edit')->name('product.edit');
-Route::get('/product/newEdit/{id?}', 'ProductsController@newEdit')->name('products.newEdit');
+Route::get('/admin/products', 'ProductsController@index')->name('products');
+Route::post('/admin/products/submit/{id?}', 'ProductsController@submit')->name('products.submit');
+Route::get('/admin/product/newEdit/{id?}', 'ProductsController@newEdit')->name('products.newEdit');
+Route::post('/admin/product/delete/{id?}', 'ProductsController@delete')->name('product.delete');
     # Categories
-Route::get('/categories/index', 'CategoriesController@index')->name('categories');
-Route::get('/categories/newEdit/{id?}', 'CategoriesController@newEdit')->name('categories.newEdit');
-Route::post('/categories/submit/{id?}', 'CategoriesController@submit')->name('categories.submit');
+Route::get('/admin/categories/index', 'CategoriesController@index')->name('categories');
+Route::get('/admin/categories/newEdit/{id?}', 'CategoriesController@newEdit')->name('categories.newEdit');
+Route::post('/admin/categories/submit/{id?}', 'CategoriesController@submit')->name('categories.submit');
+
+// Client routes
+
+Route::get('/home', 'ShopController@index')->name('home');
 
 Route::resource('photos', 'PhotoController');

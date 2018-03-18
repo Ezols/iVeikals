@@ -30,9 +30,11 @@
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('products') }}">Products</a>
+                                <a class="dropdown-item" href="{{ route('products') }}">ADMIN Products</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('categories') }}">Categories</a>
+                                <a class="dropdown-item" href="{{ route('categories') }}">ADMIN Categories</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('home') }}">Shop</a>
                             </div>
                         </li>
                     </ul>

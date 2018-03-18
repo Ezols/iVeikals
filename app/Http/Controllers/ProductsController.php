@@ -34,7 +34,7 @@ class ProductsController extends Controller
             'title' => 'required|max:255',
             'weight' => 'required|integer',
             'unit' => 'required',
-            'category_id' => 'required|exists:product_categories,id',
+            //'category_id' => 'required|exists:product_categories,id',
             'price' => 'required|integer',
             'img' => 'nullable|image',
             'manufacturing_date' => 'required|date',
@@ -48,12 +48,13 @@ class ProductsController extends Controller
             $img = $request->file('img');
             $fileName = time() . '.' . $img->getClientOriginalExtension();
             Image::make($img)->resize(300, 300)->save(public_path(DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $fileName));
+            Image::make($img)->resize(200, 200)->save(public_path(DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . 'shop' . $fileName));
             $Thumbnail = Image::make($img)->resize(26, 26)->save(public_path(DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . 'thumbnail' . DIRECTORY_SEPARATOR . $fileName));
             $product->img = $fileName;
         }
 
         // Do this
-        $product->category_id = $data['category_id'];
+        $product->category_id = 2;
         $product->title = $data['title'];
         $product->weight = $data['weight'];
         $product->unit = $data['unit'];
@@ -61,6 +62,14 @@ class ProductsController extends Controller
         $product->manufacturing_date = $data['manufacturing_date'];
         $product->best_before_date = $data['best_before_date'];
         $product->save();
+
+        return redirect()->route('products');
+    }
+
+    public function delete($id)
+    {
+        $product = Product::findOrFail($id)
+            ->delete($id);
 
         return redirect()->route('products');
     }
