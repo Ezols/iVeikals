@@ -35,6 +35,7 @@ Route::post('/admin/categories/submit/{id?}', 'CategoriesController@submit')->na
 // Client routes
 
 Route::get('/home', 'ShopController@index')->name('home');
-Route::get('/cart/{id}', 'ShopController@addToCart')->name('product.addToCart');
+Route::post('/addToCart', 'ShopController@addToCart')->name('product.addToCart');
+Route::get('/shoppingCart', 'ShopController@shoppingCart')->name('product.shoppingCart');
 
 Route::resource('photos', 'PhotoController');

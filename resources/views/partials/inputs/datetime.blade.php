@@ -1,9 +1,5 @@
 <?php
     $value = isset($value) ? $value : '';
-    $options = isset($options) ? $options : [];
-    $options = $options instanceof \Illuminate\Database\Eloquent\Collection ? $options->toArray() : $options;
-    reset($options);
-    $customKeys = key($options) !== 0;
     $label = isset($label) ? $label : $name;
     $hideLabel = isset($hideLabel) ? $hideLabel : false;
     $class = isset($class) ? $class : '';
@@ -11,7 +7,7 @@
     $errorKey = isset($errorKey) ? $errorKey : $name;
     $hideErrorMessage = isset($hideErrorMessage) ? $hideErrorMessage : false;
     $placeholder = isset($placeholder) ? $placeholder : '';
-    $optionsPrefix = isset($optionsPrefix) ? $optionsPrefix . '.' : '';
+    $class = join(' ', array_filter(['form-control', $class, $isSmall ? 'input-sm' : '']));
 ?>
 
 <div class="form-group {{ $errors->has($errorKey) ? 'has-error' : '' }}">
@@ -19,17 +15,7 @@
         <label class="control-label" for="{{ $name }}">{{ $label }}</label>
     @endif
 
-        <select class="form-control {{ $isSmall ? 'input-sm' : '' }} {{ $class or '' }}" value="{{ old($errorKey, $value) }}" name="{{ $name }}" id="{{ $name }}">
-            <option>{{ $placeholder }}</option>
-
-
-            @foreach($options as $key => $option)
-                <option value='{{ $customKeys ? $key : $option }}'>{{trans($optionsPrefix . $option) }}</option>
-            @endforeach
-
-        </select>
-
-
+    <input type="datetime-local" class="{{ $class }}" value="{{ old($errorKey, $value) }}" name="{{ $name }}" id="{{ $name }}" placeholder="{{ $placeholder }}">
     @if($errors->has($errorKey) && !$hideErrorMessage)
         <span class="help-block">{{ $errors->first($errorKey) }}</span>
     @endif

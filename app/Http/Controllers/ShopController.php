@@ -7,24 +7,71 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Product_categorie;
 use Session;
+use Auth;
 
 class ShopController extends Controller
 {
-    public function index()
+
+    public function index(Request $request)
     {
-        $data['products'] = Product::all();
+        // Filter 1
+        // if(request()->has('category_id'))
+        // {
+        //     $categories = Product_categorie::where('category_id', request('category_id'))
+        //     ->paginate(9)
+        //     ->appends('category_id', request('category_id'));
+        // }
+        // else
+        // {
+        //     $data['products'] = Product::paginate(9);
+        // }
+
+        //Filter 2
+        $filterBy = $request->get('option');
+
+        // switch ($filterBy)
+        // {
+        //     case "Elektronika":
+        //     // Get product categorie ID by name
+        //         $id = Product_categorie::where();
+        //     // Filter products by categorie ID
+        //         $data['products'] = Product::where('product', 'like', '%$id%');
+        //         break;
+        //     case "Datori":
+        //         return 2;
+        //         break;
+        //     default:
+        //         
+        // }
+
+        $data['products'] = Product::orderBy('published_at', 'desc')->paginate(9);
         return view('Shop.shop', $data);
     }
 
-    public function addToCart(Request $request, $id)
+    public function addToCart()
     {
-        $product = Product::find($id);
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
-        $cart->add($product, $product->id);
+       
+        $data = request()->validate([
+            'id' => 'required|exists:products,id'
+        ]);
+ 
+        // request()->cookie('cartId')
+        // Todo
+        $cart = Cart::findOrNew(1);
 
-        $request->session()->put('cart', $cart);
-        //dd($request->session()->get('cart'));
-        return redirect()->route('home');
+        $product = Product::find($data['id']);
+
+        $cart->addProduct($product, 1);
+        $cart->save();
+
+        return redirect()->back()->cookie(
+            'cartId', mt_rand(0,10000000)
+        );
     }
+
+    public function shoppingCart()
+    {
+        return view('Shop.shoppingcart');
+    }
+
 }

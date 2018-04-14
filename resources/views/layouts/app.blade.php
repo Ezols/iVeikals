@@ -54,7 +54,12 @@
                         <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                         <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                     @else
-                    <li><a class="nav-link" href="{{ route('register') }}"><i class="fas fa-shopping-cart"></i> Shoping Cart</a></li>
+                    <li>
+                        <a class="nav-link" href="{{ route('product.shoppingCart') }}"><i class="fas fa-shopping-cart"></i> 
+                            Shoping Cart
+                        <span class="badge badge-light"> {{ Session::has('cart') ? Session::get('cart')->totalQty : '' }}</span>
+                        </a>
+                    </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:relative; padding:5px;">

@@ -21,6 +21,7 @@
                         <th>Image</th>
                         <th>Manufacturing date</th>
                         <th>Use till date</th>
+                        <th>Published at</th>
                         <th>Action</th>
                     </tr>
 
@@ -39,6 +40,7 @@
                             </td>
                             <td>{{ $product->manufacturing_date }}</td>
                             <td>{{ $product->best_before_date }}</td>
+                            <td>{{ $product->published_at->format('jS \o\f F, Y G:i:s') }}</td>
                             <td><a href="{{ route('products.newEdit', $product->id) }}" class="btn btn-primary float-right">Edit</a></td>
                         </tr>
                     @endforeach

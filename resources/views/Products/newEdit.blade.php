@@ -21,7 +21,8 @@
                         @include('partials.inputs.file', ['name' => 'img', 'label' => 'Picture', 'value' =>  "/uploads/products/" . $product->img])
                         @include('partials.inputs.date', ['name' => 'manufacturing_date', 'label' => 'Manufacturing date', 'value' => $product->manufacturing_date])
                         @include('partials.inputs.date', ['name' => 'best_before_date', 'label' => 'Best before date', 'value' => $product->best_before_date])
-
+                        @include('partials.inputs.datetime', ['name' => 'published_at', 'label' => 'Publish date', 'value' => $product->published_at])
+                  
                         <button class="btn btn-primary" type="submit" name="submit">
                             @if($id)
                                 Update
@@ -40,7 +41,7 @@
                         
                     </form>
 
-                    <form id="delete-form" action="{{ route('product.delete', $product -> id) }}"
+                    <form id="delete-form" action="{{ route('product.delete', $product->id) }}"
                             method="POST" style="display: none;">
                             {{ csrf_field() }}
                     </form>  

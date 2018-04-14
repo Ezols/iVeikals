@@ -1,37 +1,27 @@
 <?php namespace App;
 
-class Cart
+use Illuminate\Database\Eloquent\Model;
+
+class Cart extends Model
 {
-    public $items = null;
-    public $totalQty = 0;
-    public $totalPrice = 0;
+    public $timestamps = false;
 
-    // Recreate a cart?
-    public function __construct($oldCart)
-    {
-        if($oldCart)
-        {
-            $this->items = $oldCart->items;
-            $this->totalQty = $oldCart->totalQty;
-            $this->totalPrice = $oldCart->totalPrice;
-        }    
-    }
+    protected $casts = [
+        'products' => 'array',
+    ];
 
-    public function add($item, $id)
+    public function addProduct(Product $newProduct, $quantity)
     {
-        $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item];
-        if($this->items)
-        {
-            if(array_key_exists($id, $this->items))
-            {
-                $storedItem = $this->items[$id];
-            }
-        }
-        $storedItem['qty']++;
-        $storedItem['price'] = $item->price * $storedItem['qty'];
-        $this->items[$id] = $storedItem;
-        $this->totalQty++;
-        $this->totalPrice += $item->price;
-    }
+        $products = $this->products ?: [];
+
+        // 1. Atrast no produktu saraksta, produktu pec id vai nav pievienots un dabu countu cik tadas preces pievienots
+        $existingQuantity = array_get($products, $newProduct->id, 0);
+        // 2. Pieksaitit jauno quantity klat esošajam
+        $newQuantity = $existingQuantity + $quantity;
+        // 3. Saglabat produktu saraksta jauno quantity
+        $products[$newProduct->id] = $newQuantity;
+
+        $this->products = $products;
+    }    
 }
 
