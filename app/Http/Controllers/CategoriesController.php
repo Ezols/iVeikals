@@ -33,4 +33,10 @@ class CategoriesController extends Controller
 
         return redirect()->route('categories');
     }
+
+    public function delete($id)
+    {
+        Product_categorie::findOrFail($id)->delete($id);
+        return redirect()->route('categories');
+    }
 }

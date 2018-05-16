@@ -31,11 +31,13 @@ Route::post('/admin/product/delete/{id?}', 'ProductsController@delete')->name('p
 Route::get('/admin/categories/index', 'CategoriesController@index')->name('categories');
 Route::get('/admin/categories/newEdit/{id?}', 'CategoriesController@newEdit')->name('categories.newEdit');
 Route::post('/admin/categories/submit/{id?}', 'CategoriesController@submit')->name('categories.submit');
+Route::post('/admin/categories/delete/{id?}', 'CategoriesController@delete')->name('categories.delete');
 
 // Client routes
 
 Route::get('/home', 'ShopController@index')->name('home');
 Route::post('/addToCart', 'ShopController@addToCart')->name('product.addToCart');
 Route::get('/shoppingCart', 'ShopController@shoppingCart')->name('product.shoppingCart');
+Route::get('/category/{id}', 'ShopController@category')->name('product.category');
 
 Route::resource('photos', 'PhotoController');

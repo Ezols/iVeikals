@@ -32,13 +32,12 @@
                         </button>
 
                         @if($id)
-                            <a class="btn btn-danger pull-right" href="{{ route('product.delete', $product -> id) }}"
+                            <a class="btn btn-danger pull-right" href="{{ route('product.delete', $product->id) }}"
                                     onclick="event.preventDefault();document.getElementById('delete-form').submit();">
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     Delete
                             </a>
-                        @endif
-                        
+                        @endif                        
                     </form>
 
                     <form id="delete-form" action="{{ route('product.delete', $product->id) }}"

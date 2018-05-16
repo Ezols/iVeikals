@@ -22,7 +22,20 @@
                                 Add
                             @endif
                         </button>
+
+                        @if($id)
+                            <a class="btn btn-danger pull-right" href="{{ route('categories.delete', $categorie->id) }}"
+                                    onclick="event.preventDefault();document.getElementById('delete-form').submit();">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    Delete
+                            </a>
+                        @endif
                     </form>
+
+                    <form id="delete-form" action="{{ route('categories.delete', $categorie->id) }}"
+                            method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                    </form>  
                 </div>
             </div>
         </div>

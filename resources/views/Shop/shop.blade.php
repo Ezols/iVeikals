@@ -46,24 +46,26 @@
                 {{ $products->links() }}     
             </div>
         </div>
+
         <div class="col-md-3">
-            <div class="card p-3">
-                Filter: 
-                <ul class="list-unstyled m-2">
-                   <li><a href="/category_id=2">Elektronika</a></li>
-                   <li><a href="/category_id=6">Datori</a></li> 
-                   <li><a href="{{ route('home') }}">Reset</a></li>
+            <div class="card" style="width: 16rem;">
+                <div class="card-header">
+                    CATEGORIES                 
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach($categories as $category)
+                        <li class="list-group-item">
+                            <a href="{{ route('product.category', $category->id) }}"><i class="fa fa-angle-right"></i> {{ $category->title }}</a>
+                            <span class="badge pull-right"></span>
+                        </li>
+                    @endforeach
+                    <div class="card-header">
+                        Reset filter
+                    </div>                    
+                    <li class="list-group-item">
+                        <a href="{{ route('home') }}"><i class="fa fa-angle-right"></i> Reset</a>
+                    </li>
                 </ul>
-                Filter2: 
-                <form method="GET" action="">
-                    <select name="option">
-                        <Option value="Elektronika">Elektronika</Option>
-                        <Option value="Datori">Datori</Option>
-                    </select>
-
-                    <button type="submit">Submit</button>
-
-                </form>
             </div>
         </div>
     </div>
