@@ -39,5 +39,6 @@ Route::get('/home', 'ShopController@index')->name('home');
 Route::post('/addToCart', 'ShopController@addToCart')->name('product.addToCart');
 Route::get('/shoppingCart', 'ShopController@shoppingCart')->name('product.shoppingCart');
 Route::get('/category/{id}', 'ShopController@category')->name('product.category');
+Route::post('/search', 'ShopController@search')->name('product.search');
 
 Route::resource('photos', 'PhotoController');

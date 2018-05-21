@@ -26,6 +26,18 @@ class ShopController extends Controller
         return view('Shop.shop', $data);
     }
 
+    public function search(Request $request)
+    {
+        $data['categories'] = Product_categorie::orderBy('title', 'asc')->get();
+
+        if(($term = $request->get('term')))
+        {
+            $data['products'] = Product::where('title', 'like', '%'. $term . '%')->paginate(9);
+        }
+
+        return view('Shop.shop', $data);
+    }
+
     public function addToCart()
     {
        

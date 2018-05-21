@@ -15,7 +15,17 @@
             <div class="card card-default">
                 <div class="card-header">                   
                     <h2>Shop</h2>
-                </div>
+                    
+             
+                    <form action="{{  route('product.search') }}" class="form-inline float-right" role="search" method='post'>
+                        {{ csrf_field() }}
+                        <div class="input-group">
+                            <input type="text" name="term" id="term" class="form-control mr-sm-2" placeholder="Search...">          
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>                   
+                        </div>
+                    </form>                       
+                </div>      
+
                 <div class="row">
                     @foreach($products as $product)
                         <div class="col-sm-4">
