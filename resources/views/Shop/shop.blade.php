@@ -13,29 +13,32 @@
     <div class="row">
         <div class="col-md-9">
             <div class="card card-default">
-                <div class="card-header">                   
-                    <h2>Shop</h2>
-                    
-             
-                    <form action="{{  route('product.search') }}" class="form-inline float-right" role="search" method='post'>
-                        {{ csrf_field() }}
-                        <div class="input-group">
-                            <input type="text" name="term" id="term" class="form-control mr-sm-2" placeholder="Search...">          
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>                   
-                        </div>
-                    </form>                       
+                <div class="card-header">                
+                    <nav class="navbar navbar-light bg-light justify-content-between">
+                        <a class="navbar-brand">Shop search</a>   
+                        <form action="{{  route('product.search') }}" class="form-inline float-right" role="search" method='post'>
+                            {{ csrf_field() }}
+                            <div class="input-group">
+                                <input type="text" name="term" id="term" class="form-control mr-sm-2" placeholder="Search...">          
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>                   
+                            </div>
+                        </form>
+                    </nav>                       
                 </div>      
 
                 <div class="row">
                     @foreach($products as $product)
                         <div class="col-sm-4">
-                            <div class="card m-2">
+                            <div class="card m-2 p-2" style="width: 15rem;">                          
                                 @if($product->img) 
-                                        <img src="/uploads/products/shop/{{$product->img}}">
-                                @endif<br>
+                                    <img src="/uploads/products/shop/{{$product->img}}">
+                                @endif<br>                                                     
                                 <div class="card-body">
                                 <h5 class="card-title title">{{ $product->title }}</h5>
                                 <p class="card-text description">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <p>{{ $product->unit }} {{ $product->weight }}</p>
+                                <p>Manufactured: {{  $product->manufacturing_date }}</p>
+                                <p>Use before: {{ $product->best_before_date }}</p>
                                     <div class="float-left price">
                                         {{ $product->price }} €
                                     </div>
@@ -57,7 +60,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="card" style="width: 16rem;">
                 <div class="card-header">
                     CATEGORIES                 

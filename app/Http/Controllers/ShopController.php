@@ -64,4 +64,13 @@ class ShopController extends Controller
         return view('Shop.shoppingcart');
     }
 
+    public function delivery()
+    {
+        return 5;
+    }
+
+    public function contacts()
+    {
+        return view('about.contacts');
+    }
 }

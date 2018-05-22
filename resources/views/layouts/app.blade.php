@@ -32,25 +32,51 @@
                 <!-- Left Side Of Navbar -->
                 @guest
 
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('contacts') }}">Contacts</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('delivery') }}">Delivery</a>
+                        </div>
+                    </li>
+                </ul>
+
                 @else
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ route('products') }}">ADMIN Products</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('categories') }}">ADMIN Categories</a>
+                            </div>
+                        </li>                 
+
+                    
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ route('contacts') }}">Contacts</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('home') }}">Shop</a>
+                                <a class="dropdown-item" href="{{ route('delivery') }}">Delivery</a>
                             </div>
                         </li>
-                    </ul>
+                    </ul>             
+
                 @endguest
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
+                    <li>
+                        <a class="nav-link" href="{{ route('product.shoppingCart') }}"><i class="fas fa-shopping-cart"></i> 
+                            Shoping Cart
+                        <span class="badge badge-light"> {{ Session::has('cart') ? Session::get('cart')->totalQty : '' }}</span>
+                        </a>
+                    </li>
                         <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                         <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                     @else
