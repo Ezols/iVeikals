@@ -16,6 +16,7 @@ class ShopController extends Controller
     {
         $data['categories'] = Product_categorie::orderBy('title', 'asc')->get();
         $data['products'] = Product::orderBy('published_at', 'desc')->paginate(9);
+        $data['cartProducts'] = Cart::find('1')->toArray();
         return view('Shop.shop', $data);
     }
 
@@ -39,20 +40,31 @@ class ShopController extends Controller
     }
 
     public function addToCart()
-    {
-       
+    {  
+        
         $data = request()->validate([
             'id' => 'required|exists:products,id'
         ]);
- 
-        // request()->cookie('cartId')
-        // Todo
+
         $cart = Cart::findOrNew(1);
 
-        $product = Product::find($data['id']);
-
-        $cart->addProduct($product, 1);
-        $cart->save();
+        if (Auth::id())
+        {
+            $product = Product::find($data['id']);
+            $cart->addProduct($product, 1);
+            $cart->user_id = Auth::id();
+            $cart->save();
+        }
+        else
+        {
+            $product = Product::find($data['id']);
+            $cart->addProduct($product, 1);
+            $cart->user_id = mt_rand(0,10000000);
+            $cart->save();
+        }
+       
+        // request()->cookie('cartId')
+        // Todo
 
         return redirect()->back()->cookie(
             'cartId', mt_rand(0,10000000)

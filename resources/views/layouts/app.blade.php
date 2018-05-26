@@ -85,6 +85,10 @@
                             Shoping Cart
                         <span class="badge badge-light"> {{ Session::has('cart') ? Session::get('cart')->totalQty : '' }}</span>
                         </a>
+
+                        {{-- @foreach($products as $product)
+                        {{ $product->price }} €,
+                    @endforeach   --}}
                     </li>
 
                         <li class="nav-item dropdown">
