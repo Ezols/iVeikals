@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
     public $timestamps = false;
+    protected $fillable = ['user_id'];
 
     protected $casts = [
         'products' => 'array',

@@ -68,27 +68,36 @@
                 @endguest
 
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto">    
                     <!-- Authentication Links -->
                     @guest
                     <li>
-                        <a class="nav-link" href="{{ route('product.shoppingCart') }}"><i class="fas fa-shopping-cart"></i> 
+                        <a class="nav-link shoping-cart-link" href="{{ route('product.shoppingCart') }}"><i class="fas fa-shopping-cart"></i> 
+                            @if (isset($cartProducts))
+                                ( {{count(($cartProducts))}} ) 
+                            @endif
                             Shoping Cart
                         <span class="badge badge-light"> {{ Session::has('cart') ? Session::get('cart')->totalQty : '' }}</span>
+
+                        <div class="cart-link-content">
+                        @if (isset($cartProducts))
+                                ( {{print_r(($cartProducts))}} ) 
+                        @endif
+                        </div>
                         </a>
                     </li>
                         <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                         <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                     @else
                     <li>
-                        <a class="nav-link" href="{{ route('product.shoppingCart') }}"><i class="fas fa-shopping-cart"></i> 
+                        <a class="nav-link shoping-cart-link" href="{{ route('product.shoppingCart') }}"><i class="fas fa-shopping-cart"></i> 
+                            @if (isset($cartProducts))
+                                ( {{count(($cartProducts))}} ) 
+                            @endif
                             Shoping Cart
                         <span class="badge badge-light"> {{ Session::has('cart') ? Session::get('cart')->totalQty : '' }}</span>
                         </a>
-
-                        {{-- @foreach($products as $product)
-                        {{ $product->price }} €,
-                    @endforeach   --}}
+                    
                     </li>
 
                         <li class="nav-item dropdown">
@@ -125,5 +134,31 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+    <script type="text/javascript">
+$('.shoping-cart-link').hover(function(){
+    $('.cart-link-content').show();
+},function(){
+    $('.cart-link-content').hide();
+});;
+
+</script>
+
+<style>
+.shoping-cart-link {
+    position:relative;
+}
+.cart-link-content {
+    position:absolute;
+    display:none;
+    color:red;
+    top:60px;
+    left:1px;
+    width:300px;
+    height:500px;
+    background:#212529;
+}
+
+</style>
 </body>
 </html>

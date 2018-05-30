@@ -14,9 +14,21 @@ class ShopController extends Controller
 
     public function index()
     {
+        $userId = Auth::id() ? Auth::id() : request()->session()->get('guestId');
+        $cart =  Cart::where('user_id', $userId)->first();
+        $cartIds = $cart ? array_keys($cart->products) : [];
+        
+        $cartProducts = Product::whereIn('id', $cartIds)->get()->toArray();
+
+        foreach($cartProducts as $key =>  $product)
+        {
+            $cartProducts[$key]['quantity'] = $cart->products[$product['id']];
+        } 
+
         $data['categories'] = Product_categorie::orderBy('title', 'asc')->get();
         $data['products'] = Product::orderBy('published_at', 'desc')->paginate(9);
-        $data['cartProducts'] = Cart::find('1')->toArray();
+        $data['cartProducts'] = $cartProducts;
+
         return view('Shop.shop', $data);
     }
 
@@ -41,34 +53,34 @@ class ShopController extends Controller
 
     public function addToCart()
     {  
-        
-        $data = request()->validate([
+        $userId = Auth::id();
+        $request = request();
+       
+        $data = $request->validate([
             'id' => 'required|exists:products,id'
         ]);
-
-        $cart = Cart::findOrNew(1);
-
-        if (Auth::id())
+        
+        if (!$userId)
         {
-            $product = Product::find($data['id']);
-            $cart->addProduct($product, 1);
-            $cart->user_id = Auth::id();
-            $cart->save();
+            $guestId = $request->session()->get('guestId');
+            if(!$guestId) {
+                $guestId = 'guest'.mt_rand(0,10000000);
+                $request->session()->put('guestId', $guestId);
+            }
+            
+            $userId = $guestId;
         }
-        else
-        {
-            $product = Product::find($data['id']);
-            $cart->addProduct($product, 1);
-            $cart->user_id = mt_rand(0,10000000);
-            $cart->save();
-        }
-       
-        // request()->cookie('cartId')
-        // Todo
 
-        return redirect()->back()->cookie(
-            'cartId', mt_rand(0,10000000)
-        );
+        
+        $cart = Cart::firstOrCreate(['user_id' => $userId]);
+        $product = Product::find($data['id']);
+
+        $cart->addProduct($product, 1);
+
+        
+        $cart->save();
+
+        return redirect()->back();
     }
 
     public function shoppingCart()
