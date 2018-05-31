@@ -9,7 +9,8 @@
                     <h2>Contact information</h2>                 
                 </div>
                 <div class="card-body">                     
-                    <div class="row">                        
+                    <div class="row">      
+
                         <div class="col-sm">  
                             <strong>Working hours (Product pickup)</strong><br>                              
                             <div class="row">
@@ -24,7 +25,8 @@
                                     <strong>Closed</strong><br>
                                 </div>
                             </div>    
-                         </div>                   
+                         </div>     
+
                         <div class="col-sm">
                             <strong>Contacts</strong><br>
                             <strong>Address: </strong>
@@ -40,6 +42,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>                             
                 </div>
             </div>

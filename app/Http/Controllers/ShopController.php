@@ -9,6 +9,9 @@ use App\Product_categorie;
 use Session;
 use Auth;
 
+
+### Veciit vajag tad uztaisit, lai defaulta useris ir parasts useris un pec vajadzibas nomainit uz administratoru
+
 class ShopController extends Controller
 {
 
@@ -19,16 +22,21 @@ class ShopController extends Controller
         $cartIds = $cart ? array_keys($cart->products) : [];
         
         $cartProducts = Product::whereIn('id', $cartIds)->get()->toArray();
+        $finalCartPrice = 0;
 
-        foreach($cartProducts as $key =>  $product)
+        foreach($cartProducts as $key => $product)
         {
-            $cartProducts[$key]['quantity'] = $cart->products[$product['id']];
+            $q =  $cart->products[$product['id']];
+            $cartProducts[$key]['quantity'] = $q;
+            $finalCartPrice += $product['price']*$q;
         } 
 
         $data['categories'] = Product_categorie::orderBy('title', 'asc')->get();
+        # ee uzprasi nikitam ka iztikt bez paginate, tipa, kad scroolo uz leju, tad paradas jaunie itemi
         $data['products'] = Product::orderBy('published_at', 'desc')->paginate(9);
         $data['cartProducts'] = $cartProducts;
-
+        $data['finalCartPrice'] = round($finalCartPrice, 2);
+        
         return view('Shop.shop', $data);
     }
 
@@ -75,17 +83,46 @@ class ShopController extends Controller
         $cart = Cart::firstOrCreate(['user_id' => $userId]);
         $product = Product::find($data['id']);
 
-        $cart->addProduct($product, 1);
-
-        
+        $cart->addProduct($product, 1);        
         $cart->save();
 
         return redirect()->back();
     }
 
+    public function removeFromCart()
+    {
+        $id = request()->id;
+       
+        $userId = Auth::id() ? Auth::id() : request()->session()->get('guestId');
+  
+        $cart =  Cart::where('user_id', $userId)->first();
+        
+        $newProducts = array_filter($cart->products, function($key) use ($id) {
+            return $key != $id;
+        }, ARRAY_FILTER_USE_KEY);
+
+        $cart->products = $newProducts;
+        $cart->save();
+
+        return back();
+    }
+
     public function shoppingCart()
     {
-        return view('Shop.shoppingcart');
+        $userId = Auth::id() ? Auth::id() : request()->session()->get('guestId');
+        $cart =  Cart::where('user_id', $userId)->first();
+        $cartIds = $cart ? array_keys($cart->products) : [];
+  
+        $cartProducts = Product::whereIn('id', $cartIds)->get()->toArray();
+
+        foreach($cartProducts as $key =>  $product)
+        {
+            $cartProducts[$key]['quantity'] = $cart->products[$product['id']];
+        } 
+ 
+        $data['cartProducts'] = $cartProducts;
+
+        return view('Shop.shoppingcart', $data);
     }
 
     public function delivery()

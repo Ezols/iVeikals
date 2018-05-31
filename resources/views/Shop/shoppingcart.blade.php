@@ -11,19 +11,55 @@
 
                 <table class="table">
                     <tr>
+                        <th>id - NONEM PEC TAM</th>
                         <th>Product</th>
-                        <th>Price €</th>
+                        <th>Weight</th>
+                        <th>Unit</th>   
+                        <th>Price</th>
+                        <th>Image</th>
+                        <th>Manufacturing date</th>
+                        <th>Use till date</th>
                         <th>Quantity</th>
-                        <th>Buyer</th>
+                        <th>Action</th>
                     </tr>
 
-                @foreach($products as $product)    
+                @foreach($cartProducts as $product)    
                     <tr>
-                        {{ dd($product->title) }}
+                        <td>{{ $product['id'] }}</td>
+                        <td>{{ $product['title'] }}</td>
+                        <td>{{ $product['weight'] }}</td>
+                        <td>{{ $product['unit'] }}</td>
+                        <td>{{ $product['price'] }}</td>
+                        <td>
+                            @if($product['img'])
+                                <img src="/uploads/products/thumbnail/{{$product['img']}}">
+                            @endif
+                        </td>
+                        <td>{{ $product['manufacturing_date'] }}</td>
+                        <td>{{ $product['best_before_date'] }}</td>
+                        <td>{{ $product['quantity'] }}</td>
+                        <td>
+                            <form action="{{ route('product.removeFromCart')}}" method='post'>
+                                {{ csrf_field() }}
+                            <input type="hidden" name="id" value="{{ $product['id'] }}">
+                            <input type="submit" value="delete">
+                            </form>
 
+                        {{-- <a class="btn btn-danger pull-right" href="{{ route('product.removeFromCart', $product['id']) }}"
+                            onclick="event.preventDefault();document.getElementById('delete-form').submit();">
+                            <i class="fas fa-trash-alt"></i>                               
+                        </a> --}}
+                        
+                        </td>
                     </tr>
+
                 @endforeach
+
                 </table>
+                {{-- <form id="delete-form" action="{{ route('product.removeFromCart', $product['id']) }}"
+                method="POST" style="display: none;">
+                {{ csrf_field() }}
+                </form>   --}}
             </div>
         </div>
     </div>

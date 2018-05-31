@@ -13,12 +13,37 @@
     <!-- Font awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
-    
+
     <!-- Custom CSS-->
     <link rel="stylesheet" href="{{ URL::to('src/css/app.css') }}">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
+<style>
+    .shoping-cart-link {
+        position:relative;
+        height: auto;
+    }
+    .cart-link-content {
+        position:absolute;
+        display:none;
+        color:#212529;
+        padding-top: 25px;
+        left:-80px;
+        z-index:10;
+    }
+    .cart-link-content-inner {
+        background:#e9ecef;
+        width:350px;
+        height:300px;
+        overflow-y: auto;
+    }
+    .cart-total {
+        background:#e9ecef;
+    }
+    
+    </style>
 </head>
 <body>
     <div id="app">
@@ -52,9 +77,9 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('categories') }}">ADMIN Categories</a>
                             </div>
-                        </li>                 
+                        </li>
 
-                    
+
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
                             <div class="dropdown-menu">
@@ -63,41 +88,120 @@
                                 <a class="dropdown-item" href="{{ route('delivery') }}">Delivery</a>
                             </div>
                         </li>
-                    </ul>             
+                    </ul>
 
                 @endguest
 
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">    
+                <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
                     <li>
-                        <a class="nav-link shoping-cart-link" href="{{ route('product.shoppingCart') }}"><i class="fas fa-shopping-cart"></i> 
+                        <a class="nav-link shoping-cart-link" href="{{ route('product.shoppingCart') }}"><i class="fas fa-shopping-cart"></i>
                             @if (isset($cartProducts))
-                                ( {{count(($cartProducts))}} ) 
+                                ( {{count(($cartProducts))}} )
                             @endif
                             Shoping Cart
                         <span class="badge badge-light"> {{ Session::has('cart') ? Session::get('cart')->totalQty : '' }}</span>
 
-                        <div class="cart-link-content">
-                        @if (isset($cartProducts))
-                                ( {{print_r(($cartProducts))}} ) 
-                        @endif
-                        </div>
+                            <div class="cart-link-content">
+                                <div class="cart-link-content-inner">
+                                        <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>name</td>
+                                                        <td>price</td>
+                                                        <td>quantity</td>
+                                                        <td></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                @if (isset($cartProducts) && !empty($cartProducts))
+                                                    @foreach($cartProducts as $product)
+                                                    <tr>
+                                                        <td>{{$product['title']}}</td>
+                                                        <td>{{$product['price']}}</td>
+                                                        <td>{{$product['quantity']}}</td>
+                                                        <td>
+                                                            <form action="{{ route('product.removeFromCart')}}" method='post'>
+                                                                {{ csrf_field() }}
+                                                            <input type="hidden" name="id" value="{{ $product['id'] }}">
+                                                            <button class="btn btn-dark float-right"><i class="fas fa-trash-alt"></i></button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="4">- do not have products - </td>
+                                                    </tr>
+                                                @endif
+                                                </tbody>
+                                        </table>
+                                </div>
+                                <div class="cart-total text-right">
+                                    @if(isset($finalCartPrice))
+                                        total : {{$finalCartPrice}} $
+                                    @endif
+                                </div>
+                            </div>
                         </a>
                     </li>
                         <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                         <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                     @else
                     <li>
-                        <a class="nav-link shoping-cart-link" href="{{ route('product.shoppingCart') }}"><i class="fas fa-shopping-cart"></i> 
+                        <a class="nav-link shoping-cart-link" href="{{ route('product.shoppingCart') }}"><i class="fas fa-shopping-cart"></i>
                             @if (isset($cartProducts))
-                                ( {{count(($cartProducts))}} ) 
+                                ( {{count(($cartProducts))}} )
                             @endif
                             Shoping Cart
                         <span class="badge badge-light"> {{ Session::has('cart') ? Session::get('cart')->totalQty : '' }}</span>
+
+                        <div class="cart-link-content">
+                                <div class="cart-link-content-inner">
+                                        <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>name</td>
+                                                        <td>price</td>
+                                                        <td>quantity</td>
+                                                        <td></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                @if (isset($cartProducts) && !empty($cartProducts))
+                                                    @foreach($cartProducts as $product)
+                                                    <tr>
+                                                        <td>{{$product['title']}}</td>
+                                                        <td>{{$product['price']}}</td>
+                                                        <td>{{$product['quantity']}}</td>
+                                                        <td>
+                                                            <form action="{{ route('product.removeFromCart')}}" method='post'>
+                                                                {{ csrf_field() }}
+                                                            <input type="hidden" name="id" value="{{ $product['id'] }}">
+                                                            <button class="btn btn-dark float-right"><i class="fas fa-trash-alt"></i></button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="4">- do not have products - </td>
+                                                    </tr>
+                                                @endif
+                                                </tbody>
+                                        </table>
+                                </div>
+                                <div class="cart-total text-right">
+                                    @if(isset($finalCartPrice))
+                                        total : {{$finalCartPrice}} $
+                                    @endif
+                                </div>
+                            </div>
+
                         </a>
-                    
+
                     </li>
 
                         <li class="nav-item dropdown">
@@ -114,8 +218,8 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         Logout
-                                    </a>     
-                                    
+                                    </a>
+
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
@@ -126,7 +230,7 @@
                 </ul>
             </div>
         </nav>
-        
+
         <main class="py-4">
             @yield('content')
         </main>
@@ -136,29 +240,12 @@
     <script src="{{ asset('js/app.js') }}"></script>
 
     <script type="text/javascript">
-$('.shoping-cart-link').hover(function(){
-    $('.cart-link-content').show();
-},function(){
-    $('.cart-link-content').hide();
-});;
+        $('.shoping-cart-link').hover(function(){
+            $('.cart-link-content').show();
+        },function() {
+            $('.cart-link-content').hide();
+        });
+    </script>
 
-</script>
-
-<style>
-.shoping-cart-link {
-    position:relative;
-}
-.cart-link-content {
-    position:absolute;
-    display:none;
-    color:red;
-    top:60px;
-    left:1px;
-    width:300px;
-    height:500px;
-    background:#212529;
-}
-
-</style>
 </body>
 </html>

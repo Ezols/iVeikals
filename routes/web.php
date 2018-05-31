@@ -34,6 +34,7 @@ Route::get('/shoppingCart', 'ShopController@shoppingCart')->name('product.shoppi
 Route::get('/category/{id}', 'ShopController@category')->name('product.category');
 Route::post('/search', 'ShopController@search')->name('product.search');
 Route::get('/checkout', 'ShopController@checkout')->name('product.checkout');
+Route::post('/removeFromCart/{id?}', 'ShopController@removeFromCart')->name('product.removeFromCart');
     # Info routes
 Route::get('/contacts', 'ShopController@contacts')->name('contacts');
 Route::get('/delivery', 'ShopController@delivery')->name('delivery');
