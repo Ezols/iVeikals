@@ -10432,3 +10432,28 @@ a.text-dark:focus {
   font-weight: bold;
 }
 
+.shoping-cart-link {
+  position: relative;
+  height: auto;
+}
+
+.cart-link-content {
+  position: absolute;
+  display: none;
+  color: #212529;
+  padding-top: 25px;
+  left: -80px;
+  z-index: 10;
+}
+
+.cart-link-content-inner {
+  background: #e9ecef;
+  width: 350px;
+  height: 300px;
+  overflow-y: auto;
+}
+
+.cart-total {
+  background: #e9ecef;
+}
+

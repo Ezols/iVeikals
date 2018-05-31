@@ -20,30 +20,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     
-<style>
-    .shoping-cart-link {
-        position:relative;
-        height: auto;
-    }
-    .cart-link-content {
-        position:absolute;
-        display:none;
-        color:#212529;
-        padding-top: 25px;
-        left:-80px;
-        z-index:10;
-    }
-    .cart-link-content-inner {
-        background:#e9ecef;
-        width:350px;
-        height:300px;
-        overflow-y: auto;
-    }
-    .cart-total {
-        background:#e9ecef;
-    }
-    
-    </style>
 </head>
 <body>
     <div id="app">
@@ -102,42 +78,42 @@
                                 ( {{count(($cartProducts))}} )
                             @endif
                             Shoping Cart
-                        <span class="badge badge-light"> {{ Session::has('cart') ? Session::get('cart')->totalQty : '' }}</span>
+                            <span class="badge badge-light"> {{ Session::has('cart') ? Session::get('cart')->totalQty : '' }}</span>
 
                             <div class="cart-link-content">
                                 <div class="cart-link-content-inner">
-                                        <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <td>name</td>
-                                                        <td>price</td>
-                                                        <td>quantity</td>
-                                                        <td></td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                @if (isset($cartProducts) && !empty($cartProducts))
-                                                    @foreach($cartProducts as $product)
-                                                    <tr>
-                                                        <td>{{$product['title']}}</td>
-                                                        <td>{{$product['price']}}</td>
-                                                        <td>{{$product['quantity']}}</td>
-                                                        <td>
-                                                            <form action="{{ route('product.removeFromCart')}}" method='post'>
-                                                                {{ csrf_field() }}
-                                                            <input type="hidden" name="id" value="{{ $product['id'] }}">
-                                                            <button class="btn btn-dark float-right"><i class="fas fa-trash-alt"></i></button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                @else
-                                                    <tr>
-                                                        <td colspan="4">- do not have products - </td>
-                                                    </tr>
-                                                @endif
-                                                </tbody>
-                                        </table>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <td>name</td>
+                                                <td>price</td>
+                                                <td>quantity</td>
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (isset($cartProducts) && !empty($cartProducts))
+                                                @foreach($cartProducts as $product)
+                                                <tr>
+                                                    <td>{{$product['title']}}</td>
+                                                    <td>{{$product['price']}}</td>
+                                                    <td>{{$product['quantity']}}</td>
+                                                    <td>
+                                                        <form action="{{ route('product.removeFromCart')}}" method='post'>
+                                                            {{ csrf_field() }}
+                                                        <input type="hidden" name="id" value="{{ $product['id'] }}">
+                                                        <button class="btn btn-dark float-right"><i class="fas fa-trash-alt"></i></button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td colspan="4">- do not have products - </td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div class="cart-total text-right">
                                     @if(isset($finalCartPrice))
@@ -161,36 +137,36 @@
                         <div class="cart-link-content">
                                 <div class="cart-link-content-inner">
                                         <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <td>name</td>
-                                                        <td>price</td>
-                                                        <td>quantity</td>
-                                                        <td></td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                            <thead>
+                                                <tr>
+                                                    <td>name</td>
+                                                    <td>price</td>
+                                                    <td>quantity</td>
+                                                    <td></td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
                                                 @if (isset($cartProducts) && !empty($cartProducts))
                                                     @foreach($cartProducts as $product)
-                                                    <tr>
-                                                        <td>{{$product['title']}}</td>
-                                                        <td>{{$product['price']}}</td>
-                                                        <td>{{$product['quantity']}}</td>
-                                                        <td>
-                                                            <form action="{{ route('product.removeFromCart')}}" method='post'>
-                                                                {{ csrf_field() }}
-                                                            <input type="hidden" name="id" value="{{ $product['id'] }}">
-                                                            <button class="btn btn-dark float-right"><i class="fas fa-trash-alt"></i></button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td>{{$product['title']}}</td>
+                                                            <td>{{$product['price']}}</td>
+                                                            <td>{{$product['quantity']}}</td>
+                                                            <td>
+                                                                <form action="{{ route('product.removeFromCart')}}" method='post'>
+                                                                    {{ csrf_field() }}
+                                                                <input type="hidden" name="id" value="{{ $product['id'] }}">
+                                                                <button class="btn btn-dark float-right"><i class="fas fa-trash-alt"></i></button>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
                                                     @endforeach
                                                 @else
                                                     <tr>
                                                         <td colspan="4">- do not have products - </td>
                                                     </tr>
                                                 @endif
-                                                </tbody>
+                                            </tbody>
                                         </table>
                                 </div>
                                 <div class="cart-total text-right">
@@ -238,14 +214,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-
-    <script type="text/javascript">
-        $('.shoping-cart-link').hover(function(){
-            $('.cart-link-content').show();
-        },function() {
-            $('.cart-link-content').hide();
-        });
-    </script>
 
 </body>
 </html>

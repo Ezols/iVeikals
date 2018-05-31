@@ -11,6 +11,7 @@ use Auth;
 
 
 ### Veciit vajag tad uztaisit, lai defaulta useris ir parasts useris un pec vajadzibas nomainit uz administratoru
+# ee uzprasi nikitam ka iztikt bez paginate, tipa, kad scroolo uz leju, tad paradas jaunie itemi
 
 class ShopController extends Controller
 {
@@ -32,7 +33,7 @@ class ShopController extends Controller
         } 
 
         $data['categories'] = Product_categorie::orderBy('title', 'asc')->get();
-        # ee uzprasi nikitam ka iztikt bez paginate, tipa, kad scroolo uz leju, tad paradas jaunie itemi
+
         $data['products'] = Product::orderBy('published_at', 'desc')->paginate(9);
         $data['cartProducts'] = $cartProducts;
         $data['finalCartPrice'] = round($finalCartPrice, 2);

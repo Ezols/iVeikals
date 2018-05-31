@@ -43,23 +43,11 @@
                                 {{ csrf_field() }}
                             <input type="hidden" name="id" value="{{ $product['id'] }}">
                             <input type="submit" value="delete">
-                            </form>
-
-                        {{-- <a class="btn btn-danger pull-right" href="{{ route('product.removeFromCart', $product['id']) }}"
-                            onclick="event.preventDefault();document.getElementById('delete-form').submit();">
-                            <i class="fas fa-trash-alt"></i>                               
-                        </a> --}}
-                        
+                            </form>                        
                         </td>
                     </tr>
-
                 @endforeach
-
                 </table>
-                {{-- <form id="delete-form" action="{{ route('product.removeFromCart', $product['id']) }}"
-                method="POST" style="display: none;">
-                {{ csrf_field() }}
-                </form>   --}}
             </div>
         </div>
     </div>

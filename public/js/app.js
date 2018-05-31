@@ -13890,7 +13890,13 @@ window.Vue = __webpack_require__(36);
 Vue.component('example-component', __webpack_require__(39));
 
 var app = new Vue({
-  el: '#app'
+    el: '#app'
+});
+
+$('.shoping-cart-link').hover(function () {
+    $('.cart-link-content').show();
+}, function () {
+    $('.cart-link-content').hide();
 });
 
 /***/ }),

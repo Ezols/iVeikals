@@ -20,3 +20,11 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 const app = new Vue({
     el: '#app'
 });
+
+
+$('.shoping-cart-link').hover(function(){
+    $('.cart-link-content').show();
+},function() {
+    $('.cart-link-content').hide();
+});
+
