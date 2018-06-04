@@ -1,144 +1,83 @@
-<form class="needs-validation" novalidate="">
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="firstName">First name</label>
-            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-            <div class="invalid-feedback">
-              Valid first name is required.
-            </div>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="lastName">Last name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
-            <div class="invalid-feedback">
-              Valid last name is required.
-            </div>
-          </div>
-        </div>
+@extends('layouts.app')
 
-        <div class="mb-3">
-          <label for="username">Username</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">@</span>
-            </div>
-            <input type="text" class="form-control" id="username" placeholder="Username" required="">
-            <div class="invalid-feedback" style="width: 100%;">
-              Your username is required.
-            </div>
-          </div>
-        </div>
+@section('content')
 
-        <div class="mb-3">
-          <label for="email">Email <span class="text-muted">(Optional)</span></label>
-          <input type="email" class="form-control" id="email" placeholder="you@example.com">
-          <div class="invalid-feedback">
-            Please enter a valid email address for shipping updates.
-          </div>
-        </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card card-default">
+                <div class="card-header">
+                    <h2>Please fill in order details</h2>
+                </div>
 
-        <div class="mb-3">
-          <label for="address">Address</label>
-          <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
-          <div class="invalid-feedback">
-            Please enter your shipping address.
-          </div>
-        </div>
+                <div class="card-body">
+                  <form action="{{ route('order.submit') }}" method='post'>
+                  {{ csrf_field()}}
 
-        <div class="mb-3">
-          <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-          <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-        </div>
+                    @include('partials.inputs.text', ['name' => 'name', 'label' => 'Name'])
+                    @include('partials.inputs.text', ['name' => 'surname', 'label' => 'Surname'])
+                    @include('partials.inputs.text', ['name' => 'city', 'label' => 'City'])
+                    @include('partials.inputs.text', ['name' => 'postalCode', 'label' => 'Postal code'])
+                    @include('partials.inputs.text', ['name' => 'address', 'label' => 'Streeet address'])
+                    @include('partials.inputs.text', ['name' => 'homeNumber', 'label' => 'Home number'])
+                    @include('partials.inputs.number', ['name' => 'phoneNumber', 'label' => 'Phone number'])
 
-        <div class="row">
-          <div class="col-md-5 mb-3">
-            <label for="country">Country</label>
-            <select class="custom-select d-block w-100" id="country" required="">
-              <option value="">Choose...</option>
-              <option>United States</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid country.
-            </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <label for="state">State</label>
-            <select class="custom-select d-block w-100" id="state" required="">
-              <option value="">Choose...</option>
-              <option>California</option>
-            </select>
-            <div class="invalid-feedback">
-              Please provide a valid state.
-            </div>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label for="zip">Zip</label>
-            <input type="text" class="form-control" id="zip" placeholder="" required="">
-            <div class="invalid-feedback">
-              Zip code required.
-            </div>
-          </div>
-        </div>
-        <hr class="mb-4">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="same-address">
-          <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="save-info">
-          <label class="custom-control-label" for="save-info">Save this information for next time</label>
-        </div>
-        <hr class="mb-4">
 
-        <h4 class="mb-3">Payment</h4>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input form-check-inline" id="shop">
+                    <label class="form-check-label">Pick up from shop</label>
+                </div>
 
-        <div class="d-block my-3">
-          <div class="custom-control custom-radio">
-            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
-            <label class="custom-control-label" for="credit">Credit card</label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
-            <label class="custom-control-label" for="debit">Debit card</label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
-            <label class="custom-control-label" for="paypal">PayPal</label>
-          </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="home" value="home" onclick="hideCheckboxes()">
+                    <label class="form-check-label" for="inlineCheckbox1">Deliver to home</label>
+                </div>
+
+                    <div id="hideCheckboxes">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="cash" value="option2">
+                            <label class="form-check-label" for="inlineCheckbox2">By cash</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="creditCard" value="option3">
+                            <label class="form-check-label" for="inlineCheckbox3">Credit card</label>
+                        </div>
+                    </div>
+
+                    <script>
+                            function hideCheckboxes() 
+                            {
+                                var checkBox = document.getElementById("home");
+                                var text = document.getElementById("hideCheckboxes");
+                                
+                                if (checkBox.checked == true)
+                                {
+                                    text.style.display = "block";
+                                } 
+                                else 
+                                {
+                                    text.style.display = "none";
+                                }
+                            }
+
+                    hideCheckboxes()
+                            
+                    </script>
+                    
+
+                  <div class="col-xs-12"><hr></div>     
+                  <button class="btn btn-outline-success my-2 my-sm-0 float-center" type="submit" name="submit">
+                    Accept Order
+                  </button>
+                  </form>
+                </div>           
+            </div>
         </div>
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="cc-name">Name on card</label>
-            <input type="text" class="form-control" id="cc-name" placeholder="" required="">
-            <small class="text-muted">Full name as displayed on card</small>
-            <div class="invalid-feedback">
-              Name on card is required
-            </div>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="cc-number">Credit card number</label>
-            <input type="text" class="form-control" id="cc-number" placeholder="" required="">
-            <div class="invalid-feedback">
-              Credit card number is required
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 mb-3">
-            <label for="cc-expiration">Expiration</label>
-            <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
-            <div class="invalid-feedback">
-              Expiration date required
-            </div>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label for="cc-cvv">CVV</label>
-            <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
-            <div class="invalid-feedback">
-              Security code required
-            </div>
-          </div>
-        </div>
-        <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-      </form>
+    </div>
+</div>   
+
+     
+@endsection
+
+
+

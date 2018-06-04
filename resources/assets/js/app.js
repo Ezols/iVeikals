@@ -28,3 +28,17 @@ $('.shoping-cart-link').hover(function(){
     $('.cart-link-content').hide();
 });
 
+function hideCheckboxes() 
+{
+    var checkBox = document.getElementById("home");
+    var text = document.getElementById("hideCheckboxes");
+    
+    if (checkBox.checked == true)
+    {
+        text.style.display = "block";
+    } 
+    else 
+    {
+        text.style.display = "none";
+    }
+}

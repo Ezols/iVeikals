@@ -29,14 +29,14 @@
                 <div class="row">
                     @foreach($products as $product)
                         <div class="col-sm-4">
-                            <div class="card m-2 p-2" style="width: 15rem;">                          
+                            <div class="card m-2 p-2" style="width: 15rem; height: 30rem;">                          
                                 @if($product->img) 
                                     <img src="/uploads/products/shop/{{$product->img}}">
                                 @endif<br>                                                     
                                 <div class="card-body">
                                 <h5 class="card-title title">{{ $product->title }}</h5>
                                 <p class="card-text description">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                <p>{{ $product->unit }} {{ $product->weight }}</p>
+                                <p>{{ $product->unit }}: {{ $product->weight }}</p>
                                 <p>Manufactured: {{  $product->manufacturing_date }}</p>
                                 <p>Use before: {{ $product->best_before_date }}</p>
                                     <div class="float-left price">

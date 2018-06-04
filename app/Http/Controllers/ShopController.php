@@ -115,24 +115,76 @@ class ShopController extends Controller
         $cartIds = $cart ? array_keys($cart->products) : [];
   
         $cartProducts = Product::whereIn('id', $cartIds)->get()->toArray();
+        $finalCartPrice = 0;
 
         foreach($cartProducts as $key =>  $product)
         {
-            $cartProducts[$key]['quantity'] = $cart->products[$product['id']];
+            $q =  $cart->products[$product['id']];
+            $cartProducts[$key]['quantity'] = $q;
+            $finalCartPrice += $product['price']*$q;
         } 
- 
+
         $data['cartProducts'] = $cartProducts;
+        $data['finalCartPrice'] = round($finalCartPrice, 2);
+        
 
         return view('Shop.shoppingcart', $data);
+
     }
 
     public function delivery()
     {
-        return 5;
+        $userId = Auth::id() ? Auth::id() : request()->session()->get('guestId');
+        $cart =  Cart::where('user_id', $userId)->first();
+        $cartIds = $cart ? array_keys($cart->products) : [];
+  
+        $cartProducts = Product::whereIn('id', $cartIds)->get()->toArray();
+        $finalCartPrice = 0;
+
+        foreach($cartProducts as $key =>  $product)
+        {
+            $q =  $cart->products[$product['id']];
+            $cartProducts[$key]['quantity'] = $q;
+            $finalCartPrice += $product['price']*$q;
+        } 
+
+        $data['cartProducts'] = $cartProducts;
+        $data['finalCartPrice'] = round($finalCartPrice, 2);
+
+        return view('about.delivery', $data);
     }
 
     public function contacts()
     {
-        return view('about.contacts');
+        $userId = Auth::id() ? Auth::id() : request()->session()->get('guestId');
+        $cart =  Cart::where('user_id', $userId)->first();
+        $cartIds = $cart ? array_keys($cart->products) : [];
+  
+        $cartProducts = Product::whereIn('id', $cartIds)->get()->toArray();
+        $finalCartPrice = 0;
+
+        foreach($cartProducts as $key =>  $product)
+        {
+            $q =  $cart->products[$product['id']];
+            $cartProducts[$key]['quantity'] = $q;
+            $finalCartPrice += $product['price']*$q;
+        } 
+
+        $data['cartProducts'] = $cartProducts;
+        $data['finalCartPrice'] = round($finalCartPrice, 2);
+
+        return view('about.contacts', $data);
+    }
+
+    public function checkout()
+    {
+        return view('shop.checkout');
+    }
+
+    public function submitOrder()
+    {
+        request()->session()->flush();
+        return view('about.thankyou');
     }
 }
+

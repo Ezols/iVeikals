@@ -96,7 +96,7 @@
                                                 @foreach($cartProducts as $product)
                                                 <tr>
                                                     <td>{{$product['title']}}</td>
-                                                    <td>{{$product['price']}}</td>
+                                                    <td>{{$product['price']}} €</td>
                                                     <td>{{$product['quantity']}}</td>
                                                     <td>
                                                         <form action="{{ route('product.removeFromCart')}}" method='post'>
@@ -117,7 +117,7 @@
                                 </div>
                                 <div class="cart-total text-right">
                                     @if(isset($finalCartPrice))
-                                        total : {{$finalCartPrice}} $
+                                        total : {{$finalCartPrice}} €
                                     @endif
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                                                     @endforeach
                                                 @else
                                                     <tr>
-                                                        <td colspan="4">- do not have products - </td>
+                                                        <td colspan="4">Cart is empty</td>
                                                     </tr>
                                                 @endif
                                             </tbody>
@@ -171,7 +171,7 @@
                                 </div>
                                 <div class="cart-total text-right">
                                     @if(isset($finalCartPrice))
-                                        total : {{$finalCartPrice}} $
+                                        total : {{$finalCartPrice}} €
                                     @endif
                                 </div>
                             </div>
